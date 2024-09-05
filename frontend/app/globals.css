@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+/* body {
+  background: linear-gradient(to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb)) !important;
+} */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .no-spin {
+
+    /* For Chrome, Safari, Edge, and Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      @apply appearance-none;
+      margin: 0;
+    }
+
+    /* For Firefox */
+    & {
+      @apply appearance-none;
+    }
+  }
+}
+
+.css-y1cnxt {
+  border: 2px solid #1e88e5;
+  border-radius: 12px;
+  padding: 8px 20px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1e88e5, #ff4081, #ffd180);
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(30, 136, 229, 0.5);
+  text-align: center;
+  -webkit-transition: -webkit-transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  margin-right: 16px;
+}
+
+.spinner {
+  border: 4px #18181a solid;
+  border-radius: 50%;
+  border-top: 4px #666bff solid;
+  border-right: 4px #666bff solid;
+  border-bottom: 4px #666bff solid;
+  -webkit-animation: spin 1.5s linear infinite;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
