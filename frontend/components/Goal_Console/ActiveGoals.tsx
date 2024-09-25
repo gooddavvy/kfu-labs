@@ -1,5 +1,20 @@
 import React, { useMemo } from "react";
 
+// Components
+import GoalDetails from "./ActiveGoals/GoalDetails";
+
+// Utils
+import calculateProgress from "@/utils/calculate_progress";
+import isNearDeadline from "@/utils/is_near_deadline";
+
+/* Main code */
+export let isPastDate = (dateString1: string, dateString2: string): boolean => {
+  const date1 = new Date(dateString1);
+  const date2 = new Date(dateString2);
+
+  return date1 < date2;
+};
+
 export default function ActiveGoals({ profile }: { profile: any }) {
   let activeGoals: any[] | undefined | null = useMemo(
     () => profile?.goals,
@@ -22,12 +37,38 @@ export default function ActiveGoals({ profile }: { profile: any }) {
           ) : (
             <>
               {activeGoals?.map((goal, index) => {
+                const progress = calculateProgress(
+                  goal.initialValue,
+                  goal.currentValue,
+                  goal.targetValue
+                );
+                const failing =
+                  isPastDate(goal.deadline, goal.startDate) ||
+                  (progress === 0 && isPastDate(goal.deadline, goal.startDate));
+
                 return (
-                  <div key={index}>
-                    <p>
-                      <b>Goal Type: </b>
-                      {goal.type}
-                    </p>
+                  <div
+                    key={index}
+                    className={`border-dashed border-black dark:border-white ${
+                      failing && "bg-inherit"
+                    } border-[1.5px] rounded-[12px] p-[10px] mt-[10px] mb-[10px] ml-[0] mr-[0]`}
+                  >
+                    <GoalDetails
+                      goal={goal}
+                      profileInfo={profile}
+                      progress={progress}
+                      progressColor={
+                        progress < 50
+                          ? "red-500"
+                          : progress < 75
+                          ? "blue-500"
+                          : "green-500"
+                      }
+                      failing={failing}
+                      deadlineIsNear={isNearDeadline(new Date(goal.deadline))}
+                      onEdit={() => {}}
+                      onDelete={() => {}}
+                    />
                   </div>
                 );
               })}

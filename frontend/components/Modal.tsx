@@ -20,26 +20,28 @@ const Modal: React.FC<ModalProps> = ({
       className={`
         fixed inset-0 flex items-center justify-center
         bg-black bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-75
-        text-gray-900 dark:text-gray-100
+        z-50
         ${className}
-        overflow-auto
+        overflow-hidden
       `}
       onClick={onClose}
     >
       <div
         className={`
-          w-full max-w-lg bg-white dark:bg-gray-900 rounded-lg shadow-lg p-4
-          text-center relative
-          mt-20
-          md:w-96
-          flex flex-col
+          relative
+          bg-white dark:bg-gray-900
+          rounded-lg shadow-lg p-4
+          text-center
+          w-full max-w-lg md:w-96
           max-h-[calc(100vh-4rem)] md:max-h-[calc(100vh-6rem)]
           overflow-y-auto
+          mt-20
+          z-50
         `}
         onClick={(e) => e.stopPropagation()} // Prevents modal from closing when clicking inside the content area
       >
         <button
-          className="absolute top-2 right-2 p-2 text-gray-900 dark:text-gray-100 md:invisible"
+          className="absolute top-2 right-2 text-gray-900 dark:text-gray-100 md:invisible lg:invisible"
           onClick={onClose}
         >
           <svg
